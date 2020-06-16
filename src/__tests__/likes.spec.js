@@ -3,44 +3,43 @@ const app = require("../app");
 const { response } = require("express");
 
 describe("Likes", () => {
-  it("should be able to give a like to the repository", async () => {
-    const repository = await request(app).post('repositry')
+  it('Should be able to give a like to the repository', async () => {
+    const repository = await request(app)
+      .post("/repositories")
       .send({
-        url: "https://github.com/mandrecorrea5/next-level-week-full",
-        title: "Next Level Week Full",
-        techs: ["NodeJs", "ReactJs", "React Native"],
-        likes: 0        
+        url: "https://github.com/mandrecorrea5/gostack-challange2-nodejsconcepts",
+        title: "GoStack Challange 2 - NodeJs Concepts",
+        techs: ["NodeJs", "Express"]
       });
 
-      console.log(repository);      
-    // const repository = await request(app)
-    //   .post("/repositories")
-    //   .send({
-    //     url: "https://github.com/Rocketseat/umbriel",
-    //     title: "Umbriel",
-    //     techs: ["Node", "Express", "TypeScript"]
-    //   });
+      let response = await request(app)
+      .post(`/repositories/${repository.body.idSuccess}/like`);      
 
-    // let response = await request(app).post(
-    //   `/repositories/${repository.body.id}/like`
-    // );
+      expect(response.body).toMatchObject({
+        likes: 1
+      });
 
-    // expect(response.body).toMatchObject({
-    //   likes: 1
-    // });
+      response = await request(app)
+        .post(`/repositories/${repository.body.idSuccess}/like`);
 
-    // response = await request(app).post(
-    //   `/repositories/${repository.body.id}/like`
-    // );
+      console.log(response.body);
+      
+      expect(response.body).toMatchObject({
+          likes: 2
+        });
 
-    // expect(response.body).toMatchObject({
-    //   likes: 2
-    // });
+      response = await request(app)
+        .post(`/repositories/${repository.body.idSuccess}/like`);
+      
+      expect(response.body).toMatchObject({
+          likes: 3
+        });  
+
   });
 
-  it("should not be able to like a repository that does not exist", async () => {
-    // await request(app)
-    //   .post(`/repositories/123/like`)
-    //   .expect(400);
+  it("Should not be able to like a repository that does not exist", async () => {
+    await request(app)
+      .post(`/repositories/123/like`)
+      .expect(400)
   });
 });

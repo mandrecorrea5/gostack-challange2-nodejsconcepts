@@ -12,7 +12,7 @@ const repositories = [];
 function validateRepositoryId(request, response, next) {
   const { id } = request.params;
 
-  if (!isUuid) {
+  if (!isUuid(id)) {
     return response.status(400).json({
       error: 'Invalid repository ID.'
     });
@@ -41,7 +41,7 @@ app.post("/repositories", (request, response) => {
     title,
     url,
     techs,
-    like:0
+    likes:0
   };
 
   repositories.push(repository);
@@ -56,7 +56,7 @@ app.post("/repositories", (request, response) => {
 
 app.put("/repositories/:id", (request, response) => {
   const { id } = request.params;
-  const { title, url, techs } = request.body;
+  const { title, url, techs, likes } = request.body;
 
   const repoIndex = repositories.findIndex(repository => repository.id === id);
 
@@ -71,6 +71,7 @@ app.put("/repositories/:id", (request, response) => {
     title,
     url,
     techs,
+    likes: repositories[repoIndex].likes
   };
 
   repositories[repoIndex] = repository;
@@ -79,6 +80,7 @@ app.put("/repositories/:id", (request, response) => {
     message: 'Success to update repository',    
     idSuccess: repository.id,
     title: repository.title, 
+    likes: repository.likes
   });
 });
 
@@ -107,14 +109,14 @@ app.post("/repositories/:id/like", (request, response) => {
       return response.status(400).json({ error: "Repository not found" });
   }
 
-  const { title, url, techs, like } = repositories[repoIndex];
+  const { title, url, techs, likes } = repositories[repoIndex];
 
   const repository = { 
     id, 
     title, 
     url, 
     techs,
-    like: like + 1
+    likes: likes + 1
   };
 
   repositories[repoIndex] = repository;
