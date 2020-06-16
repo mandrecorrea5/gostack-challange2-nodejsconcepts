@@ -11,4 +11,8 @@ Para instalar as libs dependentes do repositório, use:
 ## Development Setup
 Para rodar o projeto, execute:
 
-```yarn start```
+```yarn dev```
+
+Para rodar os testes, execute:
+
+```yarn test
