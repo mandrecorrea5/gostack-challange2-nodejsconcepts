@@ -17,19 +17,20 @@ O projeto tem por finalidade criar, listar, atualizar e deletar respoitórios do
 ## Development Setup
 Para que a projeto rode corretamente, precisa ter instalado
     
-    node
+    nodejs
+    yarn ou npm
     
 ### Libs Used
 
-    cors:     2.8.5
-    express:  4.17.1
-    uuidv4:   6.1.0
+- __[cors](https://github.com/expressjs/cors)__
+- __[express](https://expressjs.com/pt-br/guide/routing.html)__
+- __[uuidv4](https://github.com/thenativeweb/uuidv4)__
     
 ### Dev Libs Used
 
-    jest:       25.2.6
-    nodemon:    2.0.2
-    supertest:  4.0.2
+- __[jest](https://jestjs.io)__
+- __[nodemon](https://nodemon.io)__
+- __[supertest](https://github.com/visionmedia/supertest)__
     
 ### Instalation
   ```yarn install```
