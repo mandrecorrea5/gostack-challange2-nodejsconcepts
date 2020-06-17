@@ -21,8 +21,6 @@ describe("Likes", () => {
 
       response = await request(app)
         .post(`/repositories/${repository.body.idSuccess}/like`);
-
-      console.log(response.body);
       
       expect(response.body).toMatchObject({
           likes: 2
