@@ -46,11 +46,7 @@ app.post("/repositories", (request, response) => {
 
   repositories.push(repository);
 
-  return response.json({
-    message: 'Success to save repository',    
-    idSuccess: repository.id,
-    title: repository.title
-  });
+  return response.json(repository);
 
 });
 
@@ -76,12 +72,7 @@ app.put("/repositories/:id", (request, response) => {
 
   repositories[repoIndex] = repository;
 
-  return response.json({
-    message: 'Success to update repository',    
-    idSuccess: repository.id,
-    title: repository.title, 
-    likes: repository.likes
-  });
+  return response.json(repository);
 });
 
 app.delete("/repositories/:id", (request, response) => {
